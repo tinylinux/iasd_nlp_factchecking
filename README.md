@@ -17,5 +17,5 @@ pip install focal_loss_torch tqdm torch transformers numpy sklearn
 example command to Train and Evaluate RoBERTa model on the full2.jsonl dataset:
 
 ```bash
-python model.py --epochs 300 --dataset_dir sufficient_facts --dataset full2.jsonl --batch_size 8 --lr 1e-6
+python model.py --epochs 300 --dataset_dir sufficient_facts --dataset full2.jsonl --batch_size 8 --lr 1e-6 --model roberta
 ```
