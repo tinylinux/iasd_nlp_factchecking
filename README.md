@@ -8,4 +8,4 @@ the "full2.jsonl" file was computed from "full.jsonl" file to rearrange and reba
 
 example command to Train and Evaluate RoBERTa model on the full2.jsonl dataset:
 
-python model.py --epochs 30 --dataset_dir sufficient_facts --dataset full2.jsonl --batch_size 8 --lr 1e-7
+python model.py --epochs 30 --dataset_dir sufficient_facts --dataset full2.jsonl --batch_size 8 --lr 1e-6
