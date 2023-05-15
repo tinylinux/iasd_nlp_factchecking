@@ -277,7 +277,7 @@ if __name__ == "__main__":
     parser.add_argument("--batch_size", help="Batch size", type=int, default=8)
     parser.add_argument("--lr", help="Learning Rate", type=float, default=1e-6)
     parser.add_argument("--epochs", help="Epochs number", type=int, default=4)
-    parser.add_argument("--accum_steps", help="Gradient accumulation steps", type=int, default=1)
+    
     args = parser.parse_args()
    
     device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
