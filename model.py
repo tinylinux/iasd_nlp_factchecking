@@ -11,6 +11,7 @@ from sklearn.metrics import precision_recall_fscore_support, accuracy_score
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 from transformers import RobertaForSequenceClassification, RobertaTokenizerFast, RobertaConfig
+from transformers import BertForSequenceClassification, BertTokenizerFast, BertConfig
 from transformers.optimization import AdamW
 import json
 from typing import Dict, List, Set, AnyStr
@@ -277,6 +278,7 @@ if __name__ == "__main__":
     parser.add_argument("--batch_size", help="Batch size", type=int, default=8)
     parser.add_argument("--lr", help="Learning Rate", type=float, default=1e-6)
     parser.add_argument("--epochs", help="Epochs number", type=int, default=4)
+    parser.add_argument("--model", help="Model (bert, roberta)", type=str, default='roberta')
     
     args = parser.parse_args()
    
@@ -285,12 +287,20 @@ if __name__ == "__main__":
     train, val, test = create_and_split_dataset(args.dataset_dir,args.dataset,args.nb_labels)
     
     #Initialise tokenizer and classifier
-    tokenizer = RobertaTokenizerFast.from_pretrained('roberta-base')
-    config = RobertaConfig.from_pretrained('roberta-base')
-    config.num_labels = args.nb_labels
-    model = RobertaForSequenceClassification.from_pretrained(
-        'roberta-base',
-        config=config).to(device)
+    if 'roberta' in args.model:
+        tokenizer = RobertaTokenizerFast.from_pretrained('roberta-base')
+        config = RobertaConfig.from_pretrained('roberta-base')
+        config.num_labels = args.nb_labels
+        model = RobertaForSequenceClassification.from_pretrained(
+            'roberta-base',
+            config=config).to(device)
+    else:
+        tokenizer = BertTokenizerFast.from_pretrained('bert-base-cased')
+        config = BertConfig.from_pretrained('bert-base-cased')
+        config.num_labels = args.nb_labels
+        model = BertForSequenceClassification.from_pretrained(
+            'bert-base-cased',
+            config=config).to(device)
     #Define collate function
     collate_fn = partial(collate,
                          tokenizer=tokenizer,
